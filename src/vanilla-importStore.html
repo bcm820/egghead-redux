@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vanilla Redux Counter</title>
+</head>
+<body>
+    
+    <div>Counter: <span id="counter"></span></div>
+    <button id="dec">-</button>
+    <button id="inc">+</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js" type="text/javascript"></script>
+    <script>
+
+/* REDUX PRINCIPLES:
+1. STATE: An application's entire state is represented by a single, immutable state tree contained within a single, plain object.
+State can only be updated by dispatching actions...
+2. DISPATCHING ACTION: An action is a plain object that represents the update being made to the state tree.
+Its structure requires a serializable "type" property as well as customizable properties and values representing changes to the data.
+3. REDUCER: A reducer function is a PURE FUNCTION that takes only two inputs:
+(1) Your application's state, and
+(2) the action being dispatched.
+It then returns the next state of your application, mapped as a brand new object (not a modified version of the state).
+Note: A pure function returns a value that relies solely on the values of arguments passed in, without any side effects derived from server/DB calls.
+This way the output is predictable. Also, a pure function does not update and return existing data. Rather, it returns brand new data.
+*/
+        
+    // A reducer helps determine the state change
+    const reduce = (state = 0, action) => {
+        switch (action.type) {
+            case 'INC': return state + 1
+            case 'DEC': return state - 1
+            default: return state
+        }
+    }
+
+    // Actions to 'dispatch'
+    // Simple objects that describe an event taking place
+    const increment = { type: 'INC' }
+    const decrement = { type: 'DEC' }
+
+    // import createStore which will hold the current state
+    const {createStore} = Redux
+    let store = createStore(reduce)
+    
+    // Render function to update the view (and render the initial state)
+    const render = () => document.getElementById('counter').innerText = store.getState()
+    render(0)
+    
+    // subscribe to changes in the store and call our render function
+    store.subscribe(render)
+    
+    // Now we attach event emitters to our buttons to call dispatch
+    document.getElementById('inc').onclick = () => store.dispatch(increment)
+    document.getElementById('dec').onclick = () => store.dispatch(decrement)
+
+    </script>
+
+    </body>
+</html>

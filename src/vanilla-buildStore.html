@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vanilla Redux Counter</title>
+</head>
+<body>
+    
+    <div>Counter: <span id="counter"></span></div>
+    <button id="dec">-</button>
+    <button id="inc">+</button>
+
+    <script>
+        
+    // Abramov's createStore implementation built from scratch
+    const createStore = reducer => { // takes a custom-built reducer
+        let state // variable value of state, held in store
+        let listeners = [] // to keep track of all subscribers to store
+
+        const getState = () => state // getter function for current state
+        const dispatch = (action) => {
+            state = reducer(state, action) // when an action is dispatched, we call the reducer to update state
+            listeners.forEach(listener => listener()) // after state is updated, we notify every listener by calling it
+        }
+        const subscribe = listener => { // listener = render func
+            listeners.push(listener) // on sub, new listener is pushed into array
+            return () => listeners = listeners.filter(l => l !== listener) // 'unsubscribe'
+        }
+        dispatch({}) // dummy action to get reducer to return initial value
+        return { getState, dispatch, subscribe }
+    }
+
+    const reducer = (state = 0, action) => {
+        switch (action.type) {
+            case 'INC': return state + 1
+            case 'DEC': return state - 1
+            default: return state
+        }
+    }
+    const increment = { type: 'INC' }
+    const decrement = { type: 'DEC' }
+
+    // rendre intial state and subscribe to store
+    let store = createStore(reducer)
+    const render = () => document.getElementById('counter').innerText = store.getState()
+    render(0)
+    store.subscribe(render)
+    
+    document.getElementById('inc').onclick = () => store.dispatch(increment)
+    document.getElementById('dec').onclick = () => store.dispatch(decrement)
+
+    </script>
+
+    </body>
+</html>
