@@ -34,18 +34,8 @@ const helper = (todo, action) => {
 // test addTodo
 const testAddTodo = () => {
   const before = []
-  const action = {
-    type: 'ADD_TODO',
-    id: 0,
-    text: 'Learn Redux'
-  }
-  const after = [
-    {
-      id: 0,
-      text: 'Learn Redux',
-      done: false
-    }
-  ]
+  const after = [ { id: 0, text: 'Learn Redux', done: false } ]
+  const action = { type: 'ADD_TODO', id: 0, text: 'Learn Redux' }
   deepFreeze(before) // throw error if prior state mutated
   deepFreeze(action) // throw error if action mutated
   expect(reducer(before, action)).toEqual(after)
@@ -54,33 +44,14 @@ const testAddTodo = () => {
 // test toggleTodo
 const testToggleTodo = () => {
   const before = [
-    {
-      id: 0,
-      text: 'Learn Redux',
-      done: false
-    },
-    {
-      id: 1,
-      text: 'Get to work',
-      done: false
-    }
+    { id: 0, text: 'Learn Redux', done: false },
+    { id: 1, text: 'Get to work', done: false }
   ]
-  const action = {
-    type: 'TOGGLE_TODO',
-    id: 1
-  }
   const after = [
-    {
-      id: 0,
-      text: 'Learn Redux',
-      done: false
-    },
-    {
-      id: 1,
-      text: 'Get to work',
-      done: true
-    }
+    { id: 0, text: 'Learn Redux', done: false },
+    { id: 1, text: 'Get to work', done: true }
   ]
+  const action = { type: 'TOGGLE_TODO', id: 1 }
   deepFreeze(before)
   deepFreeze(action)
   expect(reducer(before, action)).toEqual(after)
