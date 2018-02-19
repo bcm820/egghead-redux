@@ -13,13 +13,13 @@ const Form = () => {
   return (
     <form
       onSubmit={e => {
+        e.preventDefault();
         store.dispatch({
           type: "ADD_TODO",
           id: (nextId++).toString(),
           text: input.value
         });
         input.value = "";
-        e.preventDefault();
       }}
     >
       <input name="text" ref={node => (input = node)} />
@@ -83,8 +83,8 @@ const Link = ({ active, onClick, children }) =>
     <a
       href="#/"
       onClick={e => {
-        onClick();
         e.preventDefault();
+        onClick();
       }}
     >
       {children}
