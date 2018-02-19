@@ -1,4 +1,6 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import "./index.css";
 
-import renderApp from "./05-extractingCmps";
-renderApp();
+import App from "./05-extractingCmps";
+ReactDOM.render(<App />, root);
