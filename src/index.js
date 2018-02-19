@@ -1,5 +1,4 @@
-import './index.css'
+import "./index.css";
 
-// import counter from './01-counter'
-import todoList from './04-todoList'
-todoList()
+import renderApp from "./05-extractingCmps";
+renderApp();
