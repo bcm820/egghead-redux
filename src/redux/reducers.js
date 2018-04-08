@@ -1,9 +1,9 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import todoList from "./reducers/todoList.reducer";
-import currentFilter from "./reducers/currentFilter.reducer";
+import todoList from './reducers/todoList.reducer';
+import filter from './reducers/filter.reducer';
 
 export default combineReducers({
   todoList,
-  currentFilter
+  filter
 });
